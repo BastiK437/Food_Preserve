@@ -34,12 +34,32 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <CalendarView
+        <Spinner
+            android:id="@+id/mhd_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/MHD">
-        </CalendarView>
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_margin="8dp">
+        </Spinner>
 
+        <Spinner
+            android:id="@+id/mhd_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_margin="8dp">
+        </Spinner>
+
+        <Spinner
+            android:id="@+id/mhd_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_margin="8dp">
+        </Spinner>
     </LinearLayout>
 
 
