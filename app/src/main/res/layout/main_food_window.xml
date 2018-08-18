@@ -7,7 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:fillViewport="true"
-    android:background="@android:color/holo_orange_light">
+    android:background="@android:color/holo_orange_light"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
 
     <TextView
         android:id="@+id/food_name"
@@ -21,9 +24,9 @@
         android:id="@+id/MHD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Haltbar bis:"
         android:layout_below="@id/food_name"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        android:text="Tage Haltbar:"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,7 +34,7 @@
         android:layout_toRightOf="@id/MHD"
         android:layout_alignBaseline="@id/MHD"
         android:layout_margin="8dp"
-        android:text="01.01.2088"/>
+        android:text="12"/>
 
     <ImageButton
         android:id="@+id/check_button"

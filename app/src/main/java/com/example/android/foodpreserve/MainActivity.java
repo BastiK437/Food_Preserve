@@ -3,6 +3,7 @@ package com.example.android.foodpreserve;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -12,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         LinearLayout placeHolder = (LinearLayout) findViewById(R.id.main_linear_layout);
         getLayoutInflater().inflate(R.layout.main_food_window, placeHolder);
@@ -25,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
 
-        findViewById(R.id.MHD).getContext();
+    public void addFoodView(){
+        LinearLayout placeHolder = (LinearLayout) findViewById(R.id.main_linear_layout);
+        getLayoutInflater().inflate(R.layout.main_food_window, placeHolder);
     }
 
 }
