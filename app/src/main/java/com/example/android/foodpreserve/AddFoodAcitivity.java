@@ -45,14 +45,4 @@ public class AddFoodAcitivity extends AppCompatActivity {
         });
     }
 
-
-    public void createNewContent(String name, int day, int month, int year, int opened){
-        LinearLayout placeHolder = (LinearLayout) findViewById(R.id.main_linear_layout);
-        getLayoutInflater().inflate(R.layout.main_food_window, placeHolder);
-
-        TextView foodName = (TextView) findViewById(R.id.food_name);
-        foodName.setText(name);
-
-    }
-
 }

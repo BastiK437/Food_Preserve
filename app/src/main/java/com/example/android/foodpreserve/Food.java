@@ -14,8 +14,8 @@ public class Food {
         return name;
     }
 
-    public Integer getDurability(){
-        return durability;
+    public String getDurability(){
+        return durability.toString();
     }
 
 

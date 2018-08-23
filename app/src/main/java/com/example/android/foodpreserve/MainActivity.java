@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private int changed;
     private static ArrayList<Food> foodList;
-    private ArrayList<View> childViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,36 +29,28 @@ public class MainActivity extends AppCompatActivity {
 
         changed = 0;
         foodList = new ArrayList<>();
-        childViews = new ArrayList<>();
 
         foodList.add(new Food("Milch", 5));
         foodList.add(new Food("Kekse", 8));
         foodList.add(new Food("Bier", 10));
 
-        LinearLayout parentLayout = (LinearLayout) findViewById(R.id.main_linear_layout);
 
-        for(int i=0; i<foodList.size(); i++){
-            View childLayout = getLayoutInflater().inflate(R.layout.main_food_window,  parentLayout, false );
+        FoodAdapter fAdapter = new FoodAdapter(this, foodList);
+        ListView mainList = (ListView) findViewById(R.id.list);
 
-            TextView foodName = (TextView) childLayout.findViewById(R.id.food_name);
-            foodName.setText(foodList.get(i).getName());
+        mainList.setAdapter(fAdapter);
 
-            TextView durability = (TextView) childLayout.findViewById(R.id.days_left);
-            durability.setText( foodList.get(i).getDurability().toString() );
-
-            parentLayout.addView(childLayout);
-        }
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 foodList.add(new Food("Milch", 5));
 
-                LinearLayout parentLayout = (LinearLayout) findViewById(R.id.main_linear_layout);
-                View childLayout = getLayoutInflater().inflate(R.layout.main_food_window,  parentLayout, false );
-
-                parentLayout.addView(childLayout);
-
+//                LinearLayout parentLayout = (LinearLayout) findViewById(R.id.main_linear_layout);
+//                View childLayout = getLayoutInflater().inflate(R.layout.main_food_window,  parentLayout, false );
+//
+//                parentLayout.addView(childLayout);
+//
 //                Intent i = new Intent(MainActivity.this, MainActivity.class);
 //                startActivity(i);
             }
@@ -81,6 +73,24 @@ public class MainActivity extends AppCompatActivity {
 
 
 /*
+
+
+
+        LinearLayout parentLayout = (LinearLayout) findViewById(R.id.main_linear_layout);
+
+        for(int i=0; i<foodList.size(); i++){
+            View childLayout = getLayoutInflater().inflate(R.layout.main_food_window,  parentLayout, false );
+
+            TextView foodName = (TextView) childLayout.findViewById(R.id.food_name);
+            foodName.setText(foodList.get(i).getName());
+
+            TextView durability = (TextView) childLayout.findViewById(R.id.days_left);
+            durability.setText( foodList.get(i).getDurability().toString() );
+
+            parentLayout.addView(childLayout);
+        }
+
+
         LinearLayout placeHolder = (LinearLayout) findViewById(R.id.main_linear_layout);
         View overlayView = getLayoutInflater().inflate(R.layout.overlay_main_menu, placeHolder);
         final View food1 = getLayoutInflater().inflate(R.layout.main_food_window, placeHolder);
