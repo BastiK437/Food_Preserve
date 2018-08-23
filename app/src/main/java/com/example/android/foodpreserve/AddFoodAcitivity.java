@@ -36,8 +36,8 @@ public class AddFoodAcitivity extends AppCompatActivity {
                 createNewContent(foodName.getText().toString(), 00, 00, 2001, 5);
 
 */
-                MainActivity ma = new MainActivity();
-                ma.addFoodView();
+                Food newFood = new  Food(findViewById(R.id.new_food_name).getTransitionName(), 5);
+                MainActivity.addFood(newFood);
 
                 Intent i = new Intent(AddFoodAcitivity.this, MainActivity.class);
                 startActivity(i);

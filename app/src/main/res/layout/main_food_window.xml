@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="60dp"
     android:fillViewport="true"
     android:background="@android:color/holo_orange_light"
     android:layout_marginLeft="16dp"
@@ -19,23 +19,22 @@
         android:text="Joghurt"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_margin="8dp"/>
+        android:layout_margin="4dp"/>
 
     <TextView
-        android:id="@+id/MHD"
+        android:id="@+id/days_left_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/food_name"
-        android:layout_margin="8dp"
         android:layout_centerHorizontal="true"
         android:text="Tage Haltbar:"/>
 
     <TextView
+        android:id="@+id/days_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/MHD"
-        android:layout_alignBaseline="@id/MHD"
-        android:layout_margin="8dp"
+        android:layout_toRightOf="@id/days_left_text"
+        android:layout_alignBaseline="@id/days_left_text"
         android:layout_centerHorizontal="true"
         android:text="12"/>
 
