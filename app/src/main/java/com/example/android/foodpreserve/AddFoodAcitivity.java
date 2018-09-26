@@ -19,6 +19,8 @@ public class AddFoodAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_acitivity);
 
+        //Dropdown Menü
+        /*
         //get the spinner from the xml.
         Spinner dropdown = findViewById(R.id.mhd_day);
         String[] items = new String[]{"1", "2", "3", "4", "5"};
@@ -27,6 +29,7 @@ public class AddFoodAcitivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
+        */
 
 
         findViewById(R.id.save_food).setOnClickListener(new View.OnClickListener(){
@@ -36,13 +39,39 @@ public class AddFoodAcitivity extends AppCompatActivity {
                 createNewContent(foodName.getText().toString(), 00, 00, 2001, 5);
 
 */
-                Food newFood = new  Food(findViewById(R.id.new_food_name).getTransitionName(), 5);
-                MainActivity.addFood(newFood);
+                EditText foodName = (EditText) findViewById(R.id.new_food_name);
+                EditText daysLeft = (EditText) findViewById(R.id.new_days_left);
+
+                if( isNumber( daysLeft.getText().toString() )  &&
+                                ( foodName.getText().toString().length() != 0 ) ){
+                    Food newFood = new Food(foodName.getText().toString(), getNumber(daysLeft.getText().toString() ) );
+
+                    MainActivity addItem = new MainActivity();
+
+                    addItem.addItemToList(newFood);
+                }
 
                 Intent i = new Intent(AddFoodAcitivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
+    }
+
+    private boolean isNumber(String number){
+        if (number.length() == 0) return false;
+        for(int i=0; i<number.length(); i++){
+            if(number.charAt(i) < '0' || number.charAt(i) > '9' ) return false;
+        }
+        return true;
+    }
+
+    private Integer getNumber(String number){
+        Integer newNumber = 0;
+        for(int i=0; i<number.length(); i++){
+            newNumber *= 10;
+            newNumber += number.charAt(i)-48;
+        }
+        return newNumber;
     }
 
 }

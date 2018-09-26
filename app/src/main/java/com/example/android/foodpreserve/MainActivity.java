@@ -20,57 +20,22 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private int changed;
-    private static ArrayList<Food> foodList;
+    private static ArrayList<Food> foodList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        changed = 0;
-        foodList = new ArrayList<>();
-
-        foodList.add(new Food("Milch", 5));
-        foodList.add(new Food("Kekse", 8));
-        foodList.add(new Food("Bier", 10));
-
-
-        FoodAdapter fAdapter = new FoodAdapter(this, foodList);
-        ListView mainList = (ListView) findViewById(R.id.list);
-
-        mainList.setAdapter(fAdapter);
-
+        addFood();
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                foodList.add(new Food("Milch", 5));
-
-//                LinearLayout parentLayout = (LinearLayout) findViewById(R.id.main_linear_layout);
-//                View childLayout = getLayoutInflater().inflate(R.layout.main_food_window,  parentLayout, false );
-//
-//                parentLayout.addView(childLayout);
-//
-//                Intent i = new Intent(MainActivity.this, MainActivity.class);
-//                startActivity(i);
+                Intent i = new Intent(MainActivity.this, AddFoodAcitivity.class);
+                startActivity(i);
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 
@@ -129,7 +94,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static void addFood(Food food){
-        foodList.add(food);
+    public void addFood(){
+        FoodAdapter fAdapter = new FoodAdapter(this, foodList);
+        ListView mainList = (ListView) findViewById(R.id.list);
+        mainList.setAdapter(fAdapter);
+    }
+
+    public void addItemToList(Food newFood){
+        foodList.add(newFood);
     }
 }

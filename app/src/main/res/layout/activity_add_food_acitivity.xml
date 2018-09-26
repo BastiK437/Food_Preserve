@@ -28,7 +28,7 @@
         <EditText
             android:id="@+id/new_food_name"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:layout_margin="8dp"
             android:background="@android:color/holo_orange_light"/>
 
@@ -37,8 +37,16 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:layout_margin="8dp"
-            android:text="MHD:"/>
+            android:text="Tage Haltbar:"/>
 
+        <EditText
+            android:id="@+id/new_days_left"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="8dp"
+            android:background="@android:color/holo_orange_light"/>
+
+        <!--
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,8 +78,9 @@
                 android:spinnerMode="dropdown"
                 android:layout_margin="8dp">
             </Spinner>
-        </LinearLayout>
 
+        </LinearLayout>
+    -->
 
 
     </LinearLayout>
