@@ -32,6 +32,7 @@ public class AddFoodAcitivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         ActionBar myAB = getSupportActionBar();
+        myAB.setDisplayHomeAsUpEnabled(true);
 
         findViewById(R.id.save_food).setOnClickListener(new View.OnClickListener(){
             @Override
