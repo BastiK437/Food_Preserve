@@ -1,23 +1,20 @@
 package com.example.android.foodpreserve;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class AddFoodAcitivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_food_acitivity);
+        setContentView(R.layout.activity_add_food);
 
         //Dropdown Menü
         /*
@@ -31,11 +28,15 @@ public class AddFoodAcitivity extends AppCompatActivity {
         dropdown.setAdapter(adapter);
         */
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar myAB = getSupportActionBar();
 
         findViewById(R.id.save_food).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){/*
-                EditText foodName = (EditText) findViewById(R.id.new_food_name);
+                EditText foodName = (EditText) findViewById(R.id.new_foo_name);
                 createNewContent(foodName.getText().toString(), 00, 00, 2001, 5);
 
 */
@@ -56,6 +57,27 @@ public class AddFoodAcitivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.action_back:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 
     private boolean isNumber(String number){
         if (number.length() == 0) return false;
