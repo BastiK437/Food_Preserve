@@ -12,28 +12,45 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private int changed;
     private static ArrayList<Food> foodList = new ArrayList<>();
+    private Data data;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        File fileDir = getFilesDir();
+
+
+        try {
+            data = new Data(fileDir);
+            foodList = data.readData();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "Could not read data - IO", Toast.LENGTH_LONG).show();
+        } catch (NumberReadException e) {
+            e.printStackTrace();
+        }
+
 
         addFood();
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent i = new Intent(MainActivity.this, AddFoodAcitivity.class);
-                startActivity(i);
+            Intent i = new Intent(MainActivity.this, AddFoodAcitivity.class);
+            startActivity(i);
             }
         });
 
@@ -94,10 +111,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+        data.saveData(foodList);
+    }
+
     public void addFood(){
         FoodAdapter fAdapter = new FoodAdapter(this, foodList);
         ListView mainList = (ListView) findViewById(R.id.list);
         mainList.setAdapter(fAdapter);
+        data.saveData(foodList);
     }
 
     public void addItemToList(Food newFood){

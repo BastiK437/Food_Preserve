@@ -10,6 +10,14 @@ public class Food {
         this.durability = durability;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setDurability(int durability){
+        this.durability = durability;
+    }
+
     public String getName(){
         return name;
     }
