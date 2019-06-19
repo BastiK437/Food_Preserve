@@ -30,9 +30,6 @@ public class AddFoodAcitivity extends AppCompatActivity {
         dropdown.setAdapter(adapter);
         */
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
         ActionBar myAB = getSupportActionBar();
         myAB.setDisplayHomeAsUpEnabled(true);
 
@@ -59,35 +56,6 @@ public class AddFoodAcitivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-
-        // Configure the search info and add any event listeners...
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
-                return true;
-
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-*/
 
     private boolean isNumber(String number){
         if (number.length() == 0) return false;
