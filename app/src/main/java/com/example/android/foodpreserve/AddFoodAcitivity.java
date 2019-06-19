@@ -50,9 +50,7 @@ public class AddFoodAcitivity extends AppCompatActivity {
                         ( foodName.getText().toString().length() != 0 ) ){
                     Food newFood = new Food(foodName.getText().toString(), getNumber(daysLeft.getText().toString() ) );
 
-                    MainActivity main = new MainActivity();
-
-                    main.addItemToList(newFood);
+                    ((Data)getApplicationContext()).saveData(newFood);
                 }
 
                 Intent i = new Intent(AddFoodAcitivity.this, MainActivity.class);

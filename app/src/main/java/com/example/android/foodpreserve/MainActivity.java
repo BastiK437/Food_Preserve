@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         try {
-            data = new Data(fileDir);
-            foodList = data.readData();
+            foodList = ((Data)getApplicationContext()).readData();
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), "Could not read data - IO", Toast.LENGTH_LONG).show();
         } catch (NumberReadException e) {
@@ -114,15 +114,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-
-        data.saveData(foodList);
     }
 
     public void addFood(){
         FoodAdapter fAdapter = new FoodAdapter(this, foodList);
         ListView mainList = (ListView) findViewById(R.id.list);
         mainList.setAdapter(fAdapter);
-        data.saveData(foodList);
     }
 
     public void addItemToList(Food newFood){
