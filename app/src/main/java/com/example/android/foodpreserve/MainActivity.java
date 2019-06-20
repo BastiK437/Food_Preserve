@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.Preference;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         File fileDir = getFilesDir();
-
 
         try {
             foodList = ((Data)getApplicationContext()).readData();

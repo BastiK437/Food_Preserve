@@ -39,12 +39,12 @@ public class Data extends Application {
             }
             Log.e("data", "file does not exist");
         }else {
-            appData.delete();
-            try {
-                appData.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            appData.delete();
+//            try {
+//                appData.createNewFile();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
             Log.e("data",  "file exists");
         }
     }
@@ -104,6 +104,15 @@ public class Data extends Application {
             fos.close();
         } catch (IOException e) {
             Log.e("data", "could not open file to write to");
+        }
+    }
+
+    public void deleteData() {
+        appData.delete();
+        try {
+            appData.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -17,4 +17,8 @@
         android:title="Switch Preference"
         android:summary="Click to switch on or off"
         android:defaultValue="true"/>
+    <Preference
+        android:key="resetBD"
+        android:title="Reset Application Data"
+        android:widgetLayout="@layout/pref_reset_button" />
 </PreferenceScreen>
