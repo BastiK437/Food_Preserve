@@ -26,6 +26,8 @@ public class Food {
         return durability.toString();
     }
 
+    public int getDurabilityInt() { return durability; }
+
 
 
 }

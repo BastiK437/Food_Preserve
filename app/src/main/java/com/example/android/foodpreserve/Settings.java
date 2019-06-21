@@ -32,7 +32,13 @@ public class Settings extends AppCompatActivity {
 
     public void reset_data(View v) {
         ((Data)getApplicationContext()).deleteData();
-        Toast.makeText(getApplicationContext(), "Data deleted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(Settings.this, MainActivity.class);
+        startActivity(i);
     }
 
 }

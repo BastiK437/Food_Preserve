@@ -51,6 +51,7 @@ public class Data extends Application {
 
     public ArrayList<Food> readData() throws NumberReadException, IOException {
         ArrayList<Food> foodList = new ArrayList<>();
+        int counter = 0;
 
         FileReader reader = new FileReader(appData);
         int input = reader.read();
@@ -84,8 +85,10 @@ public class Data extends Application {
 
             Food newFood = new Food(name, durability);
             foodList.add(newFood);
+            counter++;
         }
 
+        Log.e("data", "food readed: " + String.format("%d", counter));
         reader.close();
 
         return foodList;

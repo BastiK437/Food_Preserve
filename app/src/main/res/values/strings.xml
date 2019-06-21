@@ -4,4 +4,6 @@
     <string name="action_settings">Settings</string>
     <string name="back_button">Back</string>
     <string name="preference_delete_button">Pref_Del_Button</string>
+    <string name="name_desc">Essens Name</string>
+    <string name="mhd_desc">Haltbarkeit in Tagen</string>
 </resources>
