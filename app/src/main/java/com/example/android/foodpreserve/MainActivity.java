@@ -72,10 +72,9 @@ public class MainActivity extends AppCompatActivity {
         }
         FoodAdapter fAdapter = new FoodAdapter(this, foodList);
         ListView mainList = (ListView) findViewById(R.id.list);
-        mainList.setOnTouchListener(new OnSwipeTouchListener(this, mainList));
         mainList.setAdapter(fAdapter);
 
-        //addSwipeFunction(mainList, fAdapter);
+        addSwipeFunction(mainList, fAdapter);
     }
 
     private void addSwipeFunction(ListView lv, final FoodAdapter fAdapter) {

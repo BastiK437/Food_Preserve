@@ -90,14 +90,14 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         checkBox.setText(String.format("%d", item.getDurability()));
 
         if (item.getDurability() <= 2) {
-            listItemView.setBackgroundResource(R.drawable.list_shape_red);
+            listItemView.findViewById(R.id.main_food).setBackgroundResource(R.drawable.list_shape_red);
             listItemView.findViewById(R.id.food_used).setBackgroundResource(R.drawable.list_shape_red_infill);
         } else if (item.getDurability() <= 5) {
-            listItemView.setBackgroundResource(R.drawable.list_shape_orange);
+            listItemView.findViewById(R.id.main_food).setBackgroundResource(R.drawable.list_shape_orange);
             listItemView.findViewById(R.id.food_used).setBackgroundResource(R.drawable.list_shape_orange_infill);
 
         } else {
-            listItemView.setBackgroundResource(R.drawable.list_shape_green);
+            listItemView.findViewById(R.id.main_food).setBackgroundResource(R.drawable.list_shape_green);
             listItemView.findViewById(R.id.food_used).setBackgroundResource(R.drawable.list_shape_green_infill);
         }
 
