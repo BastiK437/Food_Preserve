@@ -5,11 +5,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/main_food_menu"
     android:fillViewport="true"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/list_shape"
-    >
+    android:background="@drawable/list_shape">
 
     <ImageView
         android:id="@+id/category_img"
@@ -24,7 +23,7 @@
         android:id="@+id/food_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:textColor="@android:color/black"
         android:layout_toRightOf="@id/category_img"
         android:layout_marginLeft="8dp"
@@ -42,32 +41,38 @@
         android:layout_marginBottom="8dp"/>
 
     <TextView
-        android:id="@+id/days_left"
-        android:textColor="@android:color/black"
+        android:id="@+id/main_days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/days_left_text"
         android:layout_alignBaseline="@id/days_left_text"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="8dp"/>
-    
-    <Button
-        android:id="@+id/trash_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/ic_delete"/>
+        android:textColor="@color/colorBlack"/>
+
+    <TextView
+        android:id="@+id/main_months"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/main_days"
+        android:layout_alignBaseline="@id/days_left_text"
+        android:textColor="@color/colorBlack"/>
+
+    <TextView
+        android:id="@+id/main_years"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/main_months"
+        android:layout_alignBaseline="@id/days_left_text"
+        android:textColor="@color/colorBlack"/>
+
 
     <Button
         android:id="@+id/food_used"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="20dp"
         android:textSize="15dp"
         android:background="@drawable/list_shape"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/trash_button"/>
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

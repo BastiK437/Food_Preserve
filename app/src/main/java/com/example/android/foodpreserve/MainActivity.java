@@ -57,60 +57,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-/*
-
-
-
-        LinearLayout parentLayout = (LinearLayout) findViewById(R.id.main_linear_layout);
-
-        for(int i=0; i<foodList.size(); i++){
-            View childLayout = getLayoutInflater().inflate(R.layout.main_food_window,  parentLayout, false );
-
-            TextView foodName = (TextView) childLayout.findViewById(R.id.food_name);
-            foodName.setText(foodList.get(i).getName());
-
-            TextView durability = (TextView) childLayout.findViewById(R.id.days_left);
-            durability.setText( foodList.get(i).getDurability().toString() );
-
-            parentLayout.addView(childLayout);
-        }
-
-
-        LinearLayout placeHolder = (LinearLayout) findViewById(R.id.main_linear_layout);
-        View overlayView = getLayoutInflater().inflate(R.layout.overlay_main_menu, placeHolder);
-        final View food1 = getLayoutInflater().inflate(R.layout.main_food_window, placeHolder);
-
-        food1.findViewById(R.id.main_food).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                if(changed==0){
-                    //food1.setVisibility(View.GONE);
-
-                    TextView food = (TextView) food1.findViewById(R.id.food_name);
-
-                    food.setText("Milch");
-                    food = (TextView) food1.findViewById(R.id.days_left);
-
-                    food.setText("5");
-                    //ArrayList<View> list = findViewById(food1.);
-
-                    changed=1;
-                }else{
-                    TextView food = (TextView) food1.findViewById(R.id.food_name);
-
-                    food.setText("Joghurt");
-                    food = (TextView) food1.findViewById(R.id.days_left);
-
-                    food.setText("5");
-                    //ArrayList<View> list = findViewById(food1.);
-
-                    changed=0;
-                }
-
-            }
-        });
-*/
-
     }
 
 
@@ -122,11 +68,8 @@ public class MainActivity extends AppCompatActivity {
     public void addFood(){
         FoodAdapter fAdapter = new FoodAdapter(this, foodList);
         ListView mainList = (ListView) findViewById(R.id.list);
-        mainList.setAdapter(fAdapter);
-    }
 
-    public void addItemToList(Food newFood){
-        foodList.add(newFood);
+        mainList.setAdapter(fAdapter);
     }
 
     @Override

@@ -44,15 +44,6 @@
             android:textColor="@color/colorBlack"
             android:text="Mindesthaltbarkeitsdatum (MHD)"/>
 
-        <EditText
-            android:id="@+id/new_days_left"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:autofillHints="@string/mhd_desc"
-            android:contentDescription="@string/name_desc"
-            />
-
         <CalendarView
             android:id="@+id/calendar_addFood"
             android:layout_width="match_parent"

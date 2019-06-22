@@ -3,6 +3,7 @@ package com.example.android.foodpreserve;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.icu.util.GregorianCalendar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,6 +16,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.MODE_PRIVATE;
 import static java.lang.Math.pow;
@@ -55,7 +59,9 @@ public class Data extends Application {
 
         FileReader reader = new FileReader(appData);
         int input = reader.read();
+        int day = 0, month = 0, year = 0;
 
+        // read the name
         while(input != -1){
             int numberCorrectur = 0;
             String name = "";
@@ -66,30 +72,36 @@ public class Data extends Application {
                 input = reader.read();
             }
 
-            Log.e("data", "Name: " + name);
-
-            input = reader.read();
-            while(input != '\n'){
-                durability *= 10;
-                durability +=  (input - 48);
-                numberCorrectur++;
-                input = reader.read();
-
-                if(numberCorrectur > 10){
-                    Log.e("data", "throw exception");
-                    throw new NumberReadException("Durability read failed");
+            for(int i = 0; i < 4; i++) {
+                switch (i) {
+                    case 0:
+                        durability = getNextNumber(reader);
+                        break;
+                    case 1:
+                        day = getNextNumber(reader);
+                        break;
+                    case 2:
+                        month = getNextNumber(reader);
+                        break;
+                    case 3:
+                        year = getNextNumber(reader);
+                        break;
                 }
             }
-            Log.e("data", "Time: " + durability);
             input = reader.read();
 
-            Food newFood = new Food(name, durability);
+            durability = getDayDifference(year, month, day);
+
+            Log.e("data", String.format("dr: %d, d: %d, m: %d, y: %d", durability, day, month, year) );
+            Food newFood = new Food(name, durability, day, month, year);
             foodList.add(newFood);
             counter++;
         }
 
         Log.e("data", "food readed: " + String.format("%d", counter));
         reader.close();
+
+        Collections.sort(foodList);
 
         return foodList;
     }
@@ -102,7 +114,14 @@ public class Data extends Application {
 
             fos.print(newFood.getName());
             fos.print(",");
-            fos.println(newFood.getDurability());
+            fos.print(newFood.getDurability());
+            fos.print(",");
+            fos.print(newFood.getDay());
+            fos.print(",");
+            fos.print(newFood.getMonth());
+            fos.print(",");
+            fos.println(newFood.getYear());
+
 
             fos.close();
         } catch (IOException e) {
@@ -119,4 +138,35 @@ public class Data extends Application {
         }
     }
 
+    private int getNextNumber(FileReader reader) {
+        int input = 0;
+        try {
+            input = reader.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int nextNumber = 0;
+        while(input != ',' && input != '\n'){
+            nextNumber *= 10;
+            nextNumber +=  (input - 48);
+            try {
+                input = reader.read();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return  nextNumber;
+    }
+
+    private int getDayDifference(int selected_year, int selected_month, int selected_day) {
+        long ms = new GregorianCalendar( selected_year, selected_month, selected_day ).getTimeInMillis();
+        long days = TimeUnit.MILLISECONDS.toDays( System.currentTimeMillis() - ms );
+
+        days = (days * -1) + 1;
+
+        Log.e("time", "tage: " + String.format("%d", days));
+
+        return (int) days;
+    }
 }

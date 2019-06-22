@@ -1,13 +1,19 @@
 package com.example.android.foodpreserve;
 
-public class Food {
+import android.util.Log;
+
+public class Food implements Comparable<Food> {
 
     private String name;
-    private Integer durability;
+    private int durability;
+    private int year, month, day;
 
-    public Food(String name, Integer durability){
+    public Food(String name, int durability, int day, int month, int year){
         this.name = name;
         this.durability = durability;
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 
     public void setName(String name){
@@ -22,12 +28,17 @@ public class Food {
         return name;
     }
 
-    public String getDurability(){
-        return durability.toString();
+    public int getDurability() { return durability; }
+
+    public int getYear() {
+        return year;
     }
 
-    public int getDurabilityInt() { return durability; }
+    public int getMonth() { return month; }
 
+    public int getDay() { return day; }
 
-
+    public int compareTo(Food candidate) {
+        return (this.getDurability() < candidate.getDurability() ) ? -1 : 1;
+    }
 }
