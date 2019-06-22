@@ -25,10 +25,42 @@ import java.util.ArrayList;
 public class FoodAdapter extends ArrayAdapter<Food> {
 
     private Context context;
+    private ArrayList<Food> list;
 
     public FoodAdapter(Context context, ArrayList<Food> list ){
         super(context, 0, list);
         this.context = context;
+        this.list = list;
+    }
+
+    public void remove(int position) {
+        list.remove(position);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
+    @Override
+    public int getItemViewType(int position) {
+
+        return position;
+    }
+
+    @Override
+    public int getCount() {
+        return list.size();
+    }
+
+    @Override
+    public Food getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
     }
 
     @NonNull
