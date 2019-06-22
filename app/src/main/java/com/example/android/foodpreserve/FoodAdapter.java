@@ -25,8 +25,6 @@ import java.util.ArrayList;
 public class FoodAdapter extends ArrayAdapter<Food> {
 
     private Context context;
-    private boolean settingsView;
-    private FoodFragment foodFragment;
 
     public FoodAdapter(Context context, ArrayList<Food> list ){
         super(context, 0, list);
@@ -40,73 +38,44 @@ public class FoodAdapter extends ArrayAdapter<Food> {
 
         View listItemView = convertView;
 
-        if(foodFragment ==  null) {
-            foodFragment = new FoodFragment();
-        }
-
-
         if(listItemView == null){
-            listItemView = LayoutInflater.from(getContext()).inflate( R.layout.main_food_fragment, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate( R.layout.main_food_window, parent, false);
         }
 
-        loadFragment(foodFragment, listItemView);
+        TextView food_name = listItemView.findViewById(R.id.food_name);
+        food_name.setText(item.getName());
 
+        TextView days_view = listItemView.findViewById(R.id.main_days);
+        days_view.setText(String.format("%d.", item.getDay()));
 
+        TextView months_view = listItemView.findViewById(R.id.main_months);
+        months_view.setText(String.format("%d.", item.getMonth()));
 
-        settingsView = false;
+        TextView years_view = listItemView.findViewById(R.id.main_years);
+        years_view.setText(String.format("%d", item.getYear()));
 
-        Log.e("fragment", "before setters");
+        Button checkBox = (Button) listItemView.findViewById(R.id.food_used);
+        checkBox.setText(String.format("%d", item.getDurability()));
 
-        setNormalWindow(item);
+        if (item.getDurability() <= 2) {
+            listItemView.setBackgroundResource(R.drawable.list_shape_red);
+            listItemView.findViewById(R.id.food_used).setBackgroundResource(R.drawable.list_shape_red_infill);
+        } else if (item.getDurability() <= 5) {
+            listItemView.setBackgroundResource(R.drawable.list_shape_orange);
+            listItemView.findViewById(R.id.food_used).setBackgroundResource(R.drawable.list_shape_orange_infill);
 
-        listItemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Toast.makeText(context, "You clicked on " + item.getName(), Toast.LENGTH_SHORT).show();
-                //listItemView.set
-                if(settingsView) {
-                    loadFragment(new FoodFragment(), view);
-                    setNormalWindow(item);
-                    settingsView = false;
-                }else {
-                    loadFragment(new FoodSettingsFragment(), view);
-                    setSettingsWindow(item);
-                    settingsView = true;
-                }
-            }
-        });
+        } else {
+            listItemView.setBackgroundResource(R.drawable.list_shape_green);
+            listItemView.findViewById(R.id.food_used).setBackgroundResource(R.drawable.list_shape_green_infill);
+        }
 
+        // Set text size of days left
+        if (item.getDurability() < 100 && item.getDurability() > 0) {
+            ((Button) listItemView.findViewById(R.id.food_used)).setTextSize(25);
+        } else {
+            ((Button) listItemView.findViewById(R.id.food_used)).setTextSize(20);
+        }
 
         return listItemView;
     }
-
-    private void loadFragment(Fragment fragment, View view) {
-        Log.e("fragment", "load fragment");
-        // create a FragmentManager
-        FragmentManager fm = ((AppCompatActivity)context).getFragmentManager();
-        // create a FragmentTransaction to begin the transaction and replace the Fragment
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        // replace the FrameLayout with new Fragment
-        fragmentTransaction.replace(view.findViewById(R.id.frameLayout).getId(), fragment);
-        fragmentTransaction.commit(); // save the changes
-        Log.e("fragment", "finish loading");
-    }
-
-    private void setNormalWindow(Food item) {
-        // food name
-        foodFragment.setFoodName(item.getName() );
-
-        // date
-        foodFragment.setDays(item.getDay());
-        foodFragment.setMonths(item.getMonth());
-        foodFragment.setYears(item.getYear());
-
-        // durability
-        foodFragment.setDurability(item.getDurability());
-    }
-
-    private void setSettingsWindow(Food item) {
-
-    }
-
 }
