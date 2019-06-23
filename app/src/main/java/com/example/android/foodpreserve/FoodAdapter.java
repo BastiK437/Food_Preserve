@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,47 +21,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hudomju.swipe.adapter.RecyclerViewAdapter;
+
 import java.util.ArrayList;
 
-public class FoodAdapter extends ArrayAdapter<Food> {
+public class FoodAdapter extends RecyclerView.Adapter<Food> {
 
     private Context context;
     private ArrayList<Food> list;
 
-    public FoodAdapter(Context context, ArrayList<Food> list ){
-        super(context, 0, list);
+    public FoodAdapter(Context context, RecyclerView recyclerView){
+        //super(context);
         this.context = context;
         this.list = list;
     }
 
     public void remove(int position) {
         list.remove(position);
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return getCount();
-    }
-    @Override
-    public int getItemViewType(int position) {
-
-        return position;
-    }
-
-    @Override
-    public int getCount() {
-        return list.size();
-    }
-
-    @Override
-    public Food getItem(int position) {
-        return list.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
     }
 
     @NonNull
@@ -109,5 +86,21 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         }
 
         return listItemView;
+    }
+
+    @NonNull
+    @Override
+    public Food onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull Food holder, int position) {
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
     }
 }

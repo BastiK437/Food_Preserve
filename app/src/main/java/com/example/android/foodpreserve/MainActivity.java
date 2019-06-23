@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,49 +65,31 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void addFood(){
+    public void addFood() {
         try {
-            foodList = ((Data)getApplicationContext()).readData();
+            foodList = ((Data) getApplicationContext()).readData();
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), "Could not read data - IO", Toast.LENGTH_LONG).show();
         } catch (NumberReadException e) {
             e.printStackTrace();
         }
-        FoodAdapter fAdapter = new FoodAdapter(this, foodList);
-        ListView mainList = (ListView) findViewById(R.id.list);
-        mainList.setAdapter(fAdapter);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+        final FoodAdapter fAdapter = new FoodAdapter(this, recyclerView);
 
-        addSwipeFunction(mainList, fAdapter);
-    }
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
-    private void addSwipeFunction(ListView lv, final FoodAdapter fAdapter) {
-        final SwipeToDismissTouchListener<ListViewAdapter> touchListener =
-                new SwipeToDismissTouchListener<>(
-                        new ListViewAdapter(lv),
-                        new SwipeToDismissTouchListener.DismissCallbacks<ListViewAdapter>() {
-                            @Override
-                            public boolean canDismiss(int position) {
-                                return true;
-                            }
+        recyclerView.setAdapter(fAdapter);
 
-                            @Override
-                            public void onDismiss(ListViewAdapter view, int position) {
-                                fAdapter.remove(position);
-                            }
-                        });
 
-        lv.setOnTouchListener(touchListener);
-        lv.setOnScrollListener((AbsListView.OnScrollListener) touchListener.makeScrollListener());
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (touchListener.existPendingDismisses()) {
-                    touchListener.undoPendingDismiss();
-                } else {
-                    Toast.makeText(MainActivity.this, "Position " + position, LENGTH_SHORT).show();
-                }
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                // Remove item from backing list here
+                fAdapter.notifyDataSetChanged();
             }
         });
+
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
