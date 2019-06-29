@@ -25,16 +25,35 @@ import com.hudomju.swipe.adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class FoodAdapter extends RecyclerView.Adapter<Food> {
+public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> {
 
     private Context context;
     private ArrayList<Food> list;
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        public TextView textView;
+        public MyViewHolder(TextView v) {
+            super(v);
+            textView = v;
+        }
+    }
 
     public FoodAdapter(Context context, RecyclerView recyclerView){
         //super(context);
         this.context = context;
         this.list = list;
     }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
+        holder.textView.setText(mDataset[position]);
+
+    }
+
 
     public void remove(int position) {
         list.remove(position);
