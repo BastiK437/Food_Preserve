@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +23,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,16 +41,12 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
-    private int changed;
     private static ArrayList<Food> foodList = new ArrayList<>();
-    private Data data;
 
     private SwipeController swipeController;
     private SwipeControllerActions scActions;
+    FoodAdapter fAdapter;
+    PopupWindow pw = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
             }
         });
-
     }
 
 
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        final FoodAdapter fAdapter = new FoodAdapter(foodList);
+        fAdapter = new FoodAdapter(foodList);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -93,7 +90,38 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(fAdapter);
 
-        swipeController = new SwipeController(new SwipeControllerActions(fAdapter, this ), this);
+        swipeController = new SwipeController(new SwipeControllerActions() {
+          @Override
+          public void onLeftClicked(int position) {
+              LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+               pw = new PopupWindow(
+                      inflater.inflate(R.layout.popup, null, false),
+                      RelativeLayout.LayoutParams.WRAP_CONTENT,
+                      RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+              pw.showAtLocation(findViewById(R.id.main_window), Gravity.CENTER, 0, 0);
+
+              RelativeLayout popupView = (RelativeLayout) pw.getContentView();
+
+              popupView.findViewById(R.id.popup_cancel).setOnClickListener(new View.OnClickListener(){
+                  @Override
+                  public void onClick(View view){
+                      Log.e("popup", "click erkannt");
+                      if(pw!=null) {
+                          pw.dismiss();
+                      }
+                  }
+              });
+          }
+
+          @Override
+          public void onRightClicked(int position) {
+              ((Data) getApplicationContext()).removeEntry(position);
+              fAdapter.list.remove(position);
+              fAdapter.notifyItemRemoved(position);
+              fAdapter.notifyItemRangeChanged(position, fAdapter.getItemCount());
+          }
+        }, this);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
 
