@@ -2,6 +2,7 @@ package com.example.android.foodpreserve;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private static ArrayList<Food> foodList = new ArrayList<>();
     private Data data;
 
+    private SwipeController swipeController;
+    private SwipeControllerActions scActions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         addFood();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -78,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (NumberReadException e) {
             e.printStackTrace();
         }
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
-        final FoodAdapter fAdapter = new FoodAdapter(this, recyclerView);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        final FoodAdapter fAdapter = new FoodAdapter(foodList);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -88,15 +93,18 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(fAdapter);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                // Remove item from backing list here
-                fAdapter.notifyDataSetChanged();
-            }
-        });
+        swipeController = new SwipeController(new SwipeControllerActions(fAdapter, this ), this);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
 
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
     }
 
     @Override
