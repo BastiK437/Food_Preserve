@@ -21,6 +21,8 @@ enum ButtonsState {
     RIGHT_VISIBLE
 }
 
+// https://codeburst.io/android-swipe-menu-with-recyclerview-8f28a235ff28
+
 class SwipeController extends Callback {
 
     private boolean swipeBack = false;
