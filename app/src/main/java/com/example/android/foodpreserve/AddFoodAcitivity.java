@@ -65,7 +65,7 @@ public class AddFoodAcitivity extends AppCompatActivity {
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
                 selected_year = year;
-                selected_month = month;
+                selected_month = month + 1; // month is starting by 0
                 selected_day = dayOfMonth;
             }
         });
@@ -90,7 +90,8 @@ public class AddFoodAcitivity extends AppCompatActivity {
     }
 
     private int getDayDifference(int selected_year, int selected_month, int selected_day) {
-        long ms = new GregorianCalendar( selected_year, selected_month, selected_day ).getTimeInMillis();
+        GregorianCalendar calendar = new GregorianCalendar( selected_year, (selected_month-1), selected_day );
+        long ms = calendar.getTimeInMillis();
         long days = TimeUnit.MILLISECONDS.toDays( System.currentTimeMillis() - ms );
 
         days = (days * -1) + 1;

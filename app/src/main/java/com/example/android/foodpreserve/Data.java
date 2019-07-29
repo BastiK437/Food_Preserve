@@ -180,7 +180,7 @@ public class Data extends Application {
     }
 
     private int getDayDifference(int selected_year, int selected_month, int selected_day) {
-        long ms = new GregorianCalendar( selected_year, selected_month, selected_day ).getTimeInMillis();
+        long ms = new GregorianCalendar( selected_year, (selected_month - 1), selected_day ).getTimeInMillis();
         long days = TimeUnit.MILLISECONDS.toDays( System.currentTimeMillis() - ms );
 
         days = (days * -1) + 1;
