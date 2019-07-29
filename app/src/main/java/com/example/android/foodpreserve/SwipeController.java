@@ -57,6 +57,7 @@ class SwipeController extends Callback {
     public int convertToAbsoluteDirection(int flags, int layoutDirection) {
         if (swipeBack) {
             swipeBack = buttonShowedState != ButtonsState.GONE;
+            Log.e("swipe", "absolute direction reached");
             return 0;
         }
         return super.convertToAbsoluteDirection(flags, layoutDirection);
@@ -66,9 +67,12 @@ class SwipeController extends Callback {
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         if (actionState == ACTION_STATE_SWIPE) {
             if (buttonShowedState != ButtonsState.GONE) {
-                if (buttonShowedState == ButtonsState.LEFT_VISIBLE) dX = Math.max(dX, buttonWidth);
-                if (buttonShowedState == ButtonsState.RIGHT_VISIBLE)
+                if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
+                    dX = Math.max(dX, buttonWidth);
+                }
+                if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
                     dX = Math.min(dX, -buttonWidth);
+                }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             } else {
                 setTouchListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

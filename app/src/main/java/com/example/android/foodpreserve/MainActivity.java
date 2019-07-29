@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.preference.Preference;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,33 +15,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hudomju.swipe.SwipeToDismissTouchListener;
-import com.hudomju.swipe.adapter.ListViewAdapter;
-
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
 
     private static ArrayList<Food> foodList = new ArrayList<>();
 
     private SwipeController swipeController;
-    private SwipeControllerActions scActions;
     FoodAdapter fAdapter;
     PopupWindow pw = null;
 
@@ -53,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addFood();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
+        drawList();
+        addSwipe();
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -72,24 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void addFood() {
-        try {
-            foodList = ((Data) getApplicationContext()).readData();
-        } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "Could not read data - IO", Toast.LENGTH_LONG).show();
-        } catch (NumberReadException e) {
-            e.printStackTrace();
-        }
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        fAdapter = new FoodAdapter(foodList);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-        recyclerView.setAdapter(fAdapter);
-
+    public void addSwipe() {
         swipeController = new SwipeController(new SwipeControllerActions() {
           @Override
           public void onLeftClicked(int position) {
@@ -117,22 +81,39 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onRightClicked(int position) {
               ((Data) getApplicationContext()).removeEntry(position);
-              fAdapter.list.remove(position);
-              fAdapter.notifyItemRemoved(position);
-              fAdapter.notifyItemRangeChanged(position, fAdapter.getItemCount());
+              fAdapter.removeItem(position);
           }
         }, this);
 
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
-
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
                 swipeController.onDraw(c);
             }
         });
+    }
+
+    public void drawList() {
+        try {
+            foodList = ((Data) getApplicationContext()).readData();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "Could not read data - IO", Toast.LENGTH_LONG).show();
+        } catch (NumberReadException e) {
+            e.printStackTrace();
+        }
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        fAdapter = new FoodAdapter(foodList);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setAdapter(fAdapter);
     }
 
     @Override
