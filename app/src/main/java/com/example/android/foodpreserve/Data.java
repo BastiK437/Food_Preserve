@@ -122,7 +122,6 @@ public class Data extends Application {
             fos.print(",");
             fos.println(newFood.getYear());
 
-
             fos.close();
         } catch (IOException e) {
             Log.e("data", "could not open file to write to");
@@ -136,6 +135,27 @@ public class Data extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void removeEntry(int position) {
+        Log.e("swipe", "remove called");
+        try {
+            ArrayList<Food> foodList = readData();
+
+            deleteData();
+
+            Log.e("swipe", "remove: " + foodList.get(position).getName());
+            foodList.remove(position);
+
+            for(Food f: foodList) {
+                saveData(f);
+            }
+        } catch (NumberReadException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private int getNextNumber(FileReader reader) {
@@ -160,7 +180,7 @@ public class Data extends Application {
     }
 
     private int getDayDifference(int selected_year, int selected_month, int selected_day) {
-        long ms = new GregorianCalendar( selected_year, selected_month, selected_day ).getTimeInMillis();
+        long ms = new GregorianCalendar( selected_year, (selected_month - 1), selected_day ).getTimeInMillis();
         long days = TimeUnit.MILLISECONDS.toDays( System.currentTimeMillis() - ms );
 
         days = (days * -1) + 1;
