@@ -2,6 +2,13 @@
 # Created by https://www.gitignore.io/api/dart,linux,flutter,intellij,androidstudio
 # Edit at https://www.gitignore.io/?templates=dart,linux,flutter,intellij,androidstudio
 
+### Personal ###
+android/*
+ios/*
+.idea/*
+test/*
+.metadata
+
 ### Dart ###
 # See https://www.dartlang.org/guides/libraries/private-files
 
