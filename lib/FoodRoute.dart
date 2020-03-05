@@ -17,8 +17,8 @@ const _noe = 8;
 ///
 /// While it is named CategoryRoute, a more apt name would be CategoryScreen,
 /// because it is responsible for the UI at the route's destination.
-class foodRoute extends StatelessWidget {
-  const foodRoute();
+class FoodRoute extends StatelessWidget {
+  const FoodRoute();
 
   static const _categoryNames = <String>[
     'Length',
@@ -44,24 +44,21 @@ class foodRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Create a list of the eight Categories, using the names and colors
     // from above. Use a placeholder icon, such as `Icons.cake` for each
     // Category. We'll add custom icons later.
-    final categorys = List<FoodWidget>.generate(_noe, (i) => FoodWidget(_categoryNames[i], null, _baseColors[i]));
+    final categorys = List<FoodWidget>.generate(_noe, (i) => FoodWidget(_categoryNames[i], null, _baseColors[i], "test"));
 
-    // TODO: Create a list view of the Categories
     final listView = Container(
       child: ListView(
         children: categorys,
       ),
     );
 
-    // TODO: Create an App Bar
     final appBar = AppBar(
       elevation: 0.0,
       centerTitle: true,
       title: Text(
-        'Unit Converter',
+        'Food Preserve',
         style: TextStyle(
           fontSize: 30.0,
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'FoodRoute.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
-
+/*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Add Food',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+*/
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Food Preserve',
+      home: FoodRoute(),
     );
   }
 }

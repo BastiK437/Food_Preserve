@@ -6,7 +6,7 @@
 // https://www.dartlang.org/guides/language/effective-dart/style#ordering
 import 'package:flutter/material.dart';
 
-const _rowHeight = 100.0;
+const _rowHeight = 80.0;
 const _borderRadius = 50.0;
 
 class FoodWidget extends StatelessWidget {
@@ -16,47 +16,111 @@ class FoodWidget extends StatelessWidget {
   final ColorSwatch color;
   final String date;
 
-  const FoodWidget( @required this.foodName, @required this.iconLocation, @required this.color, @required this.date );
+  const FoodWidget(@required this.foodName, @required this.iconLocation,
+      @required this.color, @required this.date);
 
+/*
+  Widget build(BuildContext context) {
+
+    return Material(
+      child: Padding (
+        padding: EdgeInsets.all(4.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black12,
+            border: Border.all(
+              color: Colors.grey,
+              width: 8,
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          height: _rowHeight,
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                width: double.infinity,
+                child: Container(
+                  color: Colors.red,
+                  child: Text(
+                    "Should be left",
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+
+  }
+
+  */
 
   Widget build(BuildContext context) {
+    double _width = MediaQuery.of(context).size.width;
     return Material(
-      color: Colors.transparent,
-      child: Container(
-        height: _rowHeight,
-        child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
-          highlightColor: color[50],
-          splashColor: color[100],
-          onTap: (){
-            print('I was tapped');
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
+      child: Padding (
+        padding: EdgeInsets.all(4.0),
+        child: Container(
+          padding: new EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            color: Colors.black12,
+            border: Border.all(
+              color: Colors.grey,
+              width: 1,
+            ),
+          ),
+          height: _rowHeight,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.orange,
+              border: Border.all(
+                color: Colors.green,
+                width: 1,
+              ),
+            ),
+            width: _width*0.5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(right: 16.0),
-                  child: iconLocation != null ? Icon(
-                    Icons.cake,
-                    size: 60.0,
-                  ) : null,
-                ),
-                Center(
-                    child: Text(
-                      foodName,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w700,
+                SizedBox(
+
+                  child: Container(
+                    color: Colors.red,
+                    child: Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Text(
+                        "SizedBox 1",
+                        textAlign: TextAlign.left,
                       ),
-                    )),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Container(
+                    color: Colors.red,
+                    child: Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Text(
+                        "SizedBox 2",
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+
+
   }
+
+
+
 }
