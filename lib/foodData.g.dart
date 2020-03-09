@@ -9,11 +9,13 @@ part of 'FoodData.dart';
 FoodData _$FoodDataFromJson(Map<String, dynamic> json) {
   return FoodData(
     json['name'] as String,
-    json['email'] as String,
+    json['mhd'] as String,
+    json['opened'] as bool,
   );
 }
 
 Map<String, dynamic> _$FoodDataToJson(FoodData instance) => <String, dynamic>{
       'name': instance.name,
-      'email': instance.email,
+      'mhd': instance.mhd,
+      'opened': instance.opened,
     };

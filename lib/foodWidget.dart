@@ -19,94 +19,122 @@ class FoodWidget extends StatelessWidget {
   const FoodWidget(@required this.foodName, @required this.iconLocation,
       @required this.color, @required this.date);
 
-/*
-  Widget build(BuildContext context) {
-
-    return Material(
-      child: Padding (
-        padding: EdgeInsets.all(4.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black12,
-            border: Border.all(
-              color: Colors.grey,
-              width: 8,
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          height: _rowHeight,
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                width: double.infinity,
-                child: Container(
-                  color: Colors.red,
-                  child: Text(
-                    "Should be left",
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-
-
-  }
-
-  */
-
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
+    Color _color = Colors.orange;
+    int daysLeft = 20;
     return Material(
-      child: Padding (
+      child: Padding(
         padding: EdgeInsets.all(4.0),
         child: Container(
-          padding: new EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             color: Colors.black12,
             border: Border.all(
-              color: Colors.grey,
-              width: 1,
+              color: _color,
+              width: 2,
             ),
+            borderRadius: BorderRadius.circular(10),
           ),
+          //padding: EdgeInsets.all(8.0),
+          //color: Colors.red,
           height: _rowHeight,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.orange,
+              color: Colors.white,
               border: Border.all(
-                color: Colors.green,
-                width: 1,
+                color: Colors.white,
+                width: 4,
               ),
+              borderRadius: BorderRadius.circular(10),
             ),
-            width: _width*0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: <Widget>[
-                SizedBox(
-
-                  child: Container(
-                    color: Colors.red,
-                    child: Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Text(
-                        "SizedBox 1",
-                        textAlign: TextAlign.left,
-                      ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 4,
                     ),
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  //padding: EdgeInsets.all(4.0),
+                  width: _width * 0.75,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                          padding: EdgeInsets.all(4.0),
+                          color: Colors.white,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              foodName,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                              ),
+                            ),
+                          )
+                      ),
+                      Container(
+                          padding: EdgeInsets.all(4.0),
+                          color: Colors.white,
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "MHD: ",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  date,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                      ),
+                    ],
+                  ),
+                  //child: Text("Container 1"),
                 ),
-                SizedBox(
-                  width: double.infinity,
+                Container(
+                  decoration: BoxDecoration(
+                    color: _color,
+                    border: Border.all(
+                      color: _color,
+                      width: 6,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: _rowHeight - 20,
+                  height: _rowHeight - 20,
+                  //padding: EdgeInsets.all(4.0),
                   child: Container(
-                    color: Colors.red,
-                    child: Padding(
-                      padding: EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      color: _color,
+                      border: Border.all(
+                        color: _color,
+                        width: 4,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
                       child: Text(
-                        "SizedBox 2",
-                        textAlign: TextAlign.left,
+                        daysLeft.toString(),
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
                       ),
                     ),
                   ),
@@ -115,7 +143,7 @@ class FoodWidget extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      )
     );
 
 

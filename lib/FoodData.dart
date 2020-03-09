@@ -11,10 +11,11 @@ part 'foodData.g.dart';
 @JsonSerializable()
 
 class FoodData {
-  FoodData(this.name, this.email);
+  FoodData(this.name, this.mhd, this.opened);
 
   String name;
-  String email;
+  String mhd;
+  bool opened;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
