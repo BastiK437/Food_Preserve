@@ -3,7 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'foodWidget.dart';
+import 'package:flutter/physics.dart';
+import 'FoodWidget.dart';
 import 'popup.dart';
 import 'popup_content.dart';
 
@@ -17,7 +18,8 @@ const _noe = 8;
 /// While it is named CategoryRoute, a more apt name would be CategoryScreen,
 /// because it is responsible for the UI at the route's destination.
 class FoodRoute extends StatelessWidget {
-  const FoodRoute();
+  FoodRoute();
+  List<FoodWidget> categorys;
 
   static const _categoryNames = <String>[
     'Äpfel',
@@ -45,7 +47,7 @@ class FoodRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     // from above. Use a placeholder icon, such as `Icons.cake` for each
     // Category. We'll add custom icons later.
-    final categorys = List<FoodWidget>.generate(_noe, (i) => FoodWidget(_categoryNames[i], null, _baseColors[i], "02.04.2020"));
+    categorys = List<FoodWidget>.generate(_noe, (i) => FoodWidget(_categoryNames[i], null, _baseColors[i], "02.04.2020"));
 
     final listView = Container(
       child: ListView(
@@ -62,8 +64,8 @@ class FoodRoute extends StatelessWidget {
           fontSize: 30.0,
         ),
       ),
-
     );
+
 
     return Scaffold(
       appBar: appBar,
@@ -104,7 +106,7 @@ class FoodRoute extends StatelessWidget {
               }),*/
               brightness: Brightness.light,
             ),
-            resizeToAvoidBottomPadding: false,
+            resizeToAvoidBottomInset: false,
             body: widget,
           ),
         ),
@@ -180,8 +182,15 @@ class FoodRoute extends StatelessWidget {
                       splashColor: Colors.blueAccent,
                       onPressed: () {
                         try {
+                          print("added before");
+
+                          categorys.add(new FoodWidget("test1", null, _baseColors[3], "05.03.2020"));
+                          print("added");
                           Navigator.pop(context); //close the popup
-                        } catch (e) {}
+                        } catch (e) {
+                          print("exception caught");
+                          print(e);
+                        }
                       },
                       child: Text(
                         "Hinzufügen",
