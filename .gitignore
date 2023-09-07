@@ -9,6 +9,8 @@
 test/*
 .metadata
 
+food_preserve.zip
+
 ### Dart ###
 # See https://www.dartlang.org/guides/libraries/private-files
 
