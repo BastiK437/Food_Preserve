@@ -4,8 +4,8 @@ class PopupContent extends StatefulWidget {
   final Widget content;
 
   PopupContent({
-    Key key,
-    this.content,
+    Key? key,
+    required this.content,
   }) : super(key: key);
 
   _PopupContentState createState() => _PopupContentState();

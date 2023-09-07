@@ -6,7 +6,7 @@ class PopupLayout extends ModalRoute {
   double bottom;
   double left;
   double right;
-  Color bgColor;
+  // Color bgColor;
   final Widget child;
 
   @override
@@ -19,30 +19,30 @@ class PopupLayout extends ModalRoute {
   bool get barrierDismissible => false;
 
   @override
-  Color get barrierColor =>
-      bgColor == null ? Colors.black.withOpacity(0.5) : bgColor;
+  Color get barrierColor => Colors.black.withOpacity(0.5);
+  // bgColor == null ? Colors.black.withOpacity(0.5) : bgColor;
 
   @override
-  String get barrierLabel => null;
+  Null get barrierLabel => null;
 
   @override
   bool get maintainState => false;
 
   PopupLayout(
-      {Key key,
-        this.bgColor,
-        @required this.child,
-        this.top,
-        this.bottom,
-        this.left,
-        this.right});
+      {Key? key,
+      // required this.bgColor,
+      required this.child,
+      required this.top,
+      required this.bottom,
+      required this.left,
+      required this.right});
 
   @override
   Widget buildPage(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      ) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
     if (top == null) this.top = 10;
     if (bottom == null) this.bottom = 20;
     if (left == null) this.left = 20;

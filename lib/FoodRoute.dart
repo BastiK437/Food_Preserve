@@ -2,8 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
+import 'package:flutter/services.dart';
 import 'FoodWidget.dart';
 import 'popup.dart';
 import 'popup_content.dart';
@@ -19,7 +22,8 @@ const _noe = 8;
 /// because it is responsible for the UI at the route's destination.
 class FoodRoute extends StatelessWidget {
   FoodRoute();
-  List<FoodWidget> categorys;
+
+  late List<FoodWidget> categorys;
 
   static const _categoryNames = <String>[
     'Äpfel',
@@ -47,7 +51,8 @@ class FoodRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     // from above. Use a placeholder icon, such as `Icons.cake` for each
     // Category. We'll add custom icons later.
-    categorys = List<FoodWidget>.generate(_noe, (i) => FoodWidget(_categoryNames[i], null, _baseColors[i], "02.04.2020"));
+    categorys = List<FoodWidget>.generate(_noe,
+        (i) => FoodWidget(_categoryNames[i], _baseColors[i], "02.04.2020"));
 
     final listView = Container(
       child: ListView(
@@ -66,13 +71,16 @@ class FoodRoute extends StatelessWidget {
       ),
     );
 
-
     return Scaffold(
       appBar: appBar,
       body: listView,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showPopup(context, _popupBody(context), 'Add Food',);
+          showPopup(
+            context,
+            _popupBody(context),
+            'Add Food',
+          );
         },
         tooltip: 'Add Food',
         child: Icon(Icons.add),
@@ -81,7 +89,7 @@ class FoodRoute extends StatelessWidget {
   }
 
   showPopup(BuildContext context, Widget widget, String title,
-      {BuildContext popupContext}) {
+      {BuildContext? popupContext}) {
     Navigator.push(
       context,
       PopupLayout(
@@ -93,18 +101,7 @@ class FoodRoute extends StatelessWidget {
           content: Scaffold(
             appBar: AppBar(
               title: Text(title),
-              /*
-              leading: new Builder(builder: (context) {
-                return IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    try {
-                      Navigator.pop(context); //close the popup
-                    } catch (e) {}
-                  },
-                );
-              }),*/
-              brightness: Brightness.light,
+              systemOverlayStyle: SystemUiOverlayStyle.dark,
             ),
             resizeToAvoidBottomInset: false,
             body: widget,
@@ -121,9 +118,7 @@ class FoodRoute extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(
-                  bottom: 10
-              ),
+              padding: EdgeInsets.only(bottom: 10),
               child: TextField(
                 //obscureText: true,
                 decoration: InputDecoration(
@@ -132,7 +127,6 @@ class FoodRoute extends StatelessWidget {
                 ),
               ),
             ),
-
             TextField(
               //obscureText: true,
               decoration: InputDecoration(
@@ -150,13 +144,13 @@ class FoodRoute extends StatelessWidget {
                       right: 10,
                       top: 10,
                     ),
-                    child: FlatButton(
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      disabledColor: Colors.grey,
-                      disabledTextColor: Colors.black,
-                      padding: EdgeInsets.all(8.0),
-                      splashColor: Colors.blueAccent,
+                    child: TextButton(
+                      // color: Colors.blue,
+                      // textColor: Colors.white,
+                      // disabledColor: Colors.grey,
+                      // disabledTextColor: Colors.black,
+                      // padding: EdgeInsets.all(8.0),
+                      // splashColor: Colors.blueAccent,
                       onPressed: () {
                         try {
                           Navigator.pop(context); //close the popup
@@ -169,22 +163,22 @@ class FoodRoute extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Container(
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: FlatButton(
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      disabledColor: Colors.grey,
-                      disabledTextColor: Colors.black,
-                      padding: EdgeInsets.all(8.0),
-                      splashColor: Colors.blueAccent,
+                    child: TextButton(
+                      // color: Colors.blue,
+                      // textColor: Colors.white,
+                      // disabledColor: Colors.grey,
+                      // disabledTextColor: Colors.black,
+                      // padding: EdgeInsets.all(8.0),
+                      // splashColor: Colors.blueAccent,
                       onPressed: () {
                         try {
                           print("added before");
 
-                          categorys.add(new FoodWidget("test1", null, _baseColors[3], "05.03.2020"));
+                          categorys.add(new FoodWidget(
+                              "test1", _baseColors[3], "05.03.2020"));
                           print("added");
                           Navigator.pop(context); //close the popup
                         } catch (e) {
